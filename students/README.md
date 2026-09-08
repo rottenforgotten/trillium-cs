@@ -1,7 +1,7 @@
-# Class list
+-Eamon Kreisberg-puzzlegame
 
-Add one line with your name and one sentence about what you want to build.
+Add one line Eamon and puzzle game
 Put it at the bottom in the same format as the lines above:
 
 - Ryan Norris — a script that organizes my google drive scans and uploads them to Toddle
--Eamon -I want to make a puzzle game
+-Eamon Kreisberg-puzzle game
