@@ -30,11 +30,11 @@ async def main():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             x -= speed
-        if keys[pygame.K_RIGHT]:
+        elif keys[pygame.K_RIGHT]:
             x += speed
-        if keys[pygame.K_UP]:
+        elif keys[pygame.K_UP]:
             y -= speed
-        if keys[pygame.K_DOWN]:
+        elif keys[pygame.K_DOWN]:
             y += speed
 
         screen.fill((24, 28, 36))

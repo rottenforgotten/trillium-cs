@@ -5,8 +5,7 @@
 #     python3 hunt/level5.py
 
 def area(w, h):
-    """Return the area of a rectangle that is w wide and h tall.
-    area(3, 4) should be 12."""
+  
     return w(h)
 
 
