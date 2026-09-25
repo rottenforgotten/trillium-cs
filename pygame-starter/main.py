@@ -19,7 +19,7 @@ async def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Trillium starter")
     clock = pygame.time.Clock()
-    x, y, speed = WIDTH // 2, HEIGHT // 2, 4
+    x, y, speed = WIDTH // 1.8, HEIGHT // 1.8, 40
     running = True
 
     while running:
@@ -29,19 +29,35 @@ async def main():
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            x -= speed
+            DI = "horizontal"
+            movement = "negitive"
         elif keys[pygame.K_RIGHT]:
-            x += speed
+            DI = "horizontal"
+            movement = "positive"
         elif keys[pygame.K_UP]:
-            y -= speed
+            DI = "vertical"
+            movement = "positive"
         elif keys[pygame.K_DOWN]:
-            y += speed
-
-        screen.fill((24, 28, 36))
-        pygame.draw.circle(screen, (120, 200, 160), (x, y), 24)
-        pygame.display.flip()
-        clock.tick(60)
-        await asyncio.sleep(0)  # hands control to the browser once per frame
+            DI = "vertical"
+            movement = "negitive"
+        PML = 0
+        while PML >= 20:
+            if DI == "vertical":
+                if movement == "negitive":
+                    y -= speed
+                else:
+                    y += speed
+            else:
+                if movement == "negitive":
+                    x -= speed
+                else:
+                    x += speed
+            PML += 1
+            screen.fill((24, 28, 36))
+            pygame.draw.circle(screen, (120, 200, 160), (x, y), 24)
+            pygame.display.flip()
+            clock.tick(60)
+            await asyncio.sleep(0)  # hands control to the browser once per frame
 
     pygame.quit()
 
