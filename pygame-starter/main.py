@@ -63,7 +63,7 @@ async def main():
             await asyncio.sleep(0)  # hands control to the browser once per frame
 
 
-pygame.quit()
+    pygame.quit()
 
 
 asyncio.run(main())
