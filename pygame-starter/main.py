@@ -48,13 +48,11 @@ async def main():
                 y += speed*movement
             else:
                 x += speed*movement
-            PML += 1
-            movement = 0
             
             screen.fill((24, 28, 36))
             pygame.draw.circle(screen, (120, 200, 160), (x, y), 24)
             pygame.display.flip()
-            
+            PML += 1
             clock.tick(60)
             await asyncio.sleep(0)  # hands control to the browser once per frame
     pygame.quit()
