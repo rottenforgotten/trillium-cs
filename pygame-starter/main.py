@@ -21,38 +21,30 @@ async def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Trillium starter")
     clock = pygame.time.Clock()
-    x, y, speed = WIDTH // 2, HEIGHT // 2, 1
+    x, y, speed = WIDTH // 2, HEIGHT // 2, 2
+    tx, ty = x, y
     running = True
 #for DI 0 is horizontal 1 is vertical
+    movement = 40
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            DI = 0
-            movement = -1
-        elif keys[pygame.K_RIGHT]:
-            DI = 0
-            movement = 1
-        elif keys[pygame.K_UP]:
-            DI = 1
-            movement = 1
-        elif keys[pygame.K_DOWN]:
-            DI = 1
-            movement = -1
-        PML = 0
-        while PML <= 20:
-            if DI == 1:
-                y += speed*movement
-            else:
-                x += speed*movement
+            elif event.type == pygame.KEYDOWN and (tx, ty) == (x, y):
+                if event.key == pygame.K_LEFT:
+                    tx -= movement
+                elif event.key == pygame.K_RIGHT:
+                    tx += movement
+                elif event.key == pygame.K_UP:
+                    ty += movement
+                elif event.key == pygame.K_DOWN:
+                    ty -= movement
+            
             
             screen.fill((24, 28, 36))
-            pygame.draw.circle(screen, (120, 200, 160), (x, y), 24)
+            pygame.draw.circle(screen, (120, 200, 160), (x, y), 18)
+            pygame.draw.circle(screen, (200, 0, 0), (tx, ty), 2)
             pygame.display.flip()
-            PML += 1
             clock.tick(60)
             await asyncio.sleep(0)  # hands control to the browser once per frame
     pygame.quit()
