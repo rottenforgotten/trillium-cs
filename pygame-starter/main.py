@@ -16,6 +16,8 @@ WIDTH, HEIGHT = 640, 400
 
 async def main():
     pygame.init()
+    
+    
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Trillium starter")
     clock = pygame.time.Clock()
@@ -56,10 +58,12 @@ async def main():
             screen.fill((24, 28, 36))
             pygame.draw.circle(screen, (120, 200, 160), (x, y), 24)
             pygame.display.flip()
+            
             clock.tick(60)
             await asyncio.sleep(0)  # hands control to the browser once per frame
 
-    pygame.quit()
+
+pygame.quit()
 
 
 asyncio.run(main())
