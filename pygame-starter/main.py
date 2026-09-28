@@ -31,17 +31,24 @@ async def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.KEYDOWN and (tx, ty) == (x, y):
+            elif event.type == pygame.KEYPRESS and (tx, ty) == (x, y):
                 if event.key == pygame.K_LEFT:
                     tx -= movement
                 elif event.key == pygame.K_RIGHT:
                     tx += movement
                 elif event.key == pygame.K_UP:
-                    ty += movement
-                elif event.key == pygame.K_DOWN:
                     ty -= movement
-
+                elif event.key == pygame.K_DOWN:
+                    ty += movement
+        if x > tx:
+            x -= speed
+        elif x < tx:
+            x += speed
         
+        if y > ty:
+            y -= speed
+        elif y < ty:
+            y += speed
         screen.fill((24, 28, 36))
         pygame.draw.circle(screen, (120, 200, 160), (x, y), 18)
         pygame.draw.circle(screen, (200, 0, 0), (tx, ty), 2)
