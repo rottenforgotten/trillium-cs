@@ -1,7 +1,7 @@
 """A tiny Pygame game that also runs in the browser.
 
 Run it in the browser (this is the normal way in a codespace):
-    pygbag --port 3000 pygame-starter
+    pygbag --port 3000 pygame
 then open the forwarded port 3000 when the notification appears.
 
 The only rule for browser-friendly Pygame: the game loop is `async` and
@@ -16,14 +16,12 @@ WIDTH, HEIGHT = 640, 400
 
 async def main():
     pygame.init()
-    
-    
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Trillium starter")
     clock = pygame.time.Clock()
-    x, y, speed = WIDTH // 2, HEIGHT // 2, 1
+    x, y, speed = WIDTH // 2, HEIGHT // 2, 4
     running = True
-#for DI 0 is horizontal 1 is vertical
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -31,32 +29,20 @@ async def main():
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            DI = 0
-            movement = -1
-        elif keys[pygame.K_RIGHT]:
-            DI = 0
-            movement = 1
-        elif keys[pygame.K_UP]:
-            DI = 1
-            movement = 1
-        elif keys[pygame.K_DOWN]:
-            DI = 1
-            movement = -1
-        PML = 0
-        while PML <= 20:
-            if DI == 1:
-                y += speed*movement
-            else:
-                x += speed*movement
-            PML += 1
-            movement = 0
-            
-            screen.fill((24, 28, 36))
-            pygame.draw.circle(screen, (120, 200, 160), (x, y), 24)
-            pygame.display.flip()
-            
-            clock.tick(60)
-            await asyncio.sleep(0)  # hands control to the browser once per frame
+            x -= speed
+        if keys[pygame.K_RIGHT]:
+            x += speed
+        if keys[pygame.K_UP]:
+            y -= speed
+        if keys[pygame.K_DOWN]:
+            y += speed
+
+        screen.fill((24, 28, 36))
+        pygame.draw.circle(screen, (120, 200, 160), (x, y), 24)
+        pygame.display.flip()
+        clock.tick(60)
+        await asyncio.sleep(0)  # hands control to the browser once per frame
+
     pygame.quit()
 
 
