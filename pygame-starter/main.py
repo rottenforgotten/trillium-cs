@@ -27,28 +27,39 @@ async def main():
     tx, ty = x, y
     running = True
     movement = 40
+    hitlist = [(x,y)]
     while running:
+        
         for event in pygame.event.get():
+            
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.KEYPRESS and (tx, ty) == (x, y):
+            
+            elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    tx -= movement
+                    hitlist.append(hitlist[-1][0] - movement, hitlist[-1][1])
                 elif event.key == pygame.K_RIGHT:
-                    tx += movement
+                    hitlist.append(hitlist[-1][0] + movement, hitlist[-1][1])
                 elif event.key == pygame.K_UP:
-                    ty -= movement
+                    hitlist.append(hitlist[-1][0], hitlist[-1][1] - movement)
                 elif event.key == pygame.K_DOWN:
-                    ty += movement
-        if x > tx:
-            x -= speed
-        elif x < tx:
-            x += speed
-        
-        if y > ty:
-            y -= speed
-        elif y < ty:
-            y += speed
+                    hitlist.append(hitlist[-1][0], hitlist[-1][1] + movement)
+                if len(hitlist) == 0:
+                    tx,ty = x,y
+                else:
+                    (tx,ty) = hitlist[0]
+                if tx != x:
+                    if tx > x:
+                        x -= speed
+                    else:
+                        x += speed
+                if ty != y:
+                    if ty > y:
+                        y -= speed
+                    else:
+                        y += speed
+                if (x,y) == hitlist[0]:
+                    hitlist.pop(0)
         screen.fill((24, 28, 36))
         pygame.draw.circle(screen, (120, 200, 160), (x, y), 18)
         pygame.draw.circle(screen, (200, 0, 0), (tx, ty), 2)
