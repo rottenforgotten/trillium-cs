@@ -45,7 +45,6 @@ async def main():
                     hitlist.append((hitlist[-1][0], hitlist[-1][1] - movement))
                 elif event.key == pygame.K_DOWN:
                     hitlist.append((hitlist[-1][0], hitlist[-1][1] + movement))
-        print("input done")
         # math phase
         if len(hitlist) == 0:
             tx,ty = x,y
@@ -61,10 +60,9 @@ async def main():
                 y -= speed
             else:
                 y += speed
-                if (x,y) == hitlist[0]:
-                    hitlist.pop(0)
-                    print("aignfxyur")
-        print("math done")
+        if (x,y) == hitlist[0]:
+            hitlist.pop(0)
+            print("aignfxyur")     
         #output phase
         screen.fill((24, 28, 36))
         pygame.draw.circle(screen, (120, 200, 160), (x, y), 18)
@@ -72,7 +70,6 @@ async def main():
         pygame.display.flip()
         clock.tick(60)
         await asyncio.sleep(0)  # hands control to the browser once per frame
-    print("output done")
     pygame.quit()
 
 
