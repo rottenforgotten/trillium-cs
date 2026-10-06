@@ -23,7 +23,7 @@ async def main():
     pygame.display.set_caption("Trillium starter")
     clock = pygame.time.Clock()
     x, y, = WIDTH // 2, HEIGHT // 2
-    speed = 2
+    speed = 2.5
     #movement must be divisible by speed
     tx, ty = x, y
     running = True
@@ -32,7 +32,8 @@ async def main():
     while running:
         #input phase
         for event in pygame.event.get():
-            
+            if len(hitlist) == 0:
+                hitlist.append ((x,y))
             if event.type == pygame.QUIT:
                 running = False
             
@@ -46,10 +47,6 @@ async def main():
                 elif event.key == pygame.K_DOWN:
                     hitlist.append((hitlist[-1][0], hitlist[-1][1] + movement))
         # math phase
-        if len(hitlist) == 0:
-            tx,ty = x,y
-        else:
-            (tx,ty) = hitlist[0]
         if tx != x:
             if tx > x:
                 x += speed
@@ -57,11 +54,16 @@ async def main():
                 x -= speed
         if ty != y:
             if ty > y:
-                y -= speed
-            else:
                 y += speed
-        if (x,y) == hitlist[0]:
-            hitlist.pop(0) 
+            else:
+                y -= speed
+        if len(hitlist) == 0:
+            hitlist.append((x,y))
+        else:
+            (tx,ty) = hitlist[0] 
+            if (x,y) == hitlist[0]:
+                hitlist.pop(0) 
+
         #output phase
         screen.fill((24, 28, 36))
         pygame.draw.circle(screen, (120, 200, 160), (x, y), 18)
