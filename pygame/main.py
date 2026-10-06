@@ -61,8 +61,7 @@ async def main():
             else:
                 y += speed
         if (x,y) == hitlist[0]:
-            hitlist.pop(0)
-            print("aignfxyur")     
+            hitlist.pop(0) 
         #output phase
         screen.fill((24, 28, 36))
         pygame.draw.circle(screen, (120, 200, 160), (x, y), 18)
