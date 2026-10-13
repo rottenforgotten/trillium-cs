@@ -17,8 +17,11 @@ WIDTH, HEIGHT = 640, 400
 
 async def main():
     pygame.init()
-    
-    
+    #testing stuff
+
+
+    # important
+    boxpos = [()]
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Trillium starter")
     clock = pygame.time.Clock()
