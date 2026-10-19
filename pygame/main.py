@@ -81,8 +81,7 @@ async def main():
                for x in range(16):
                    current_cell = LEVEL1[y][x]
                    if current_cell == "w":
-                       pygame.draw.rectangle(screen, (12, 12 ,12), ((x*40)(y*40)),(40,40))
-                       print("hi")
+                       pygame.draw.rect
                    elif current_cell == ".":
                        # code for drawing an empty space at x*40, y*40 (pixel position)
                        print("hi")
