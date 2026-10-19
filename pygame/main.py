@@ -14,14 +14,22 @@ import crashscreen  # shows errors on the game screen and in the terminal
 
 WIDTH, HEIGHT = 640, 400
 
-
 async def main():
     pygame.init()
-    #testing stuff
-
-
+    #maps
+    LEVEL1 = [
+    "wwwwwwwwwwwwwwww",
+    "w..............w",
+    "w..............w",
+    "w..............w",
+    "w..............w",
+    "w..............w",
+    "w..............w",
+    "w..............w",
+    "w..............w",
+    "wwwwwwwwwwwwwwww" 
+    ]
     # important
-    boxpos = [()]
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Trillium starter")
     clock = pygame.time.Clock()
@@ -69,6 +77,16 @@ async def main():
 
         #output phase
         screen.fill((24, 28, 36))
+        for y in range(10):
+               for x in range(16):
+                   current_cell = LEVEL1[y][x]
+                   if current_cell == "w":
+                       pygame.draw.rectangle(screen, (12, 12 ,12), ((x*40)(y*40)),(40,40))
+                       print("hi")
+                   elif current_cell == ".":
+                       # code for drawing an empty space at x*40, y*40 (pixel position)
+                       print("hi")
+       
         pygame.draw.circle(screen, (120, 200, 160), (x, y), 18)
         pygame.draw.circle(screen, (200, 0, 0), (tx, ty), 2)
         pygame.display.flip()
