@@ -17,12 +17,12 @@ WIDTH, HEIGHT = 640, 400
 async def main():
     pygame.init()
     #maps
-    LEVEL1 = [
+    map = [
     "wwwwwwwwwwwwwwww",
     "w..............w",
     "w..............w",
     "w.........w....w",
-    "w..............w",
+    "w......b.......w",
     "w..............w",
     "w...w..........w",
     "w..............w",
@@ -50,18 +50,15 @@ async def main():
             
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    hitlist.append((hitlist[-1][0] - movement, hitlist[-1][1]))
+                    if map[(hitlist[-1][0]//40)][(hitlist[-1][0]//40)] != "w":
+                        hitlist.append((hitlist[-1][0] - movement, hitlist[-1][1]))
                 elif event.key == pygame.K_RIGHT:
-                    hitlist.append((hitlist[-1][0] + movement, hitlist[-1][1]))
+                        hitlist.append((hitlist[-1][0] + movement, hitlist[-1][1]))
                 elif event.key == pygame.K_UP:
-                    hitlist.append((hitlist[-1][0], hitlist[-1][1] - movement))
+                        hitlist.append((hitlist[-1][0], hitlist[-1][1] - movement))
                 elif event.key == pygame.K_DOWN:
-                    hitlist.append((hitlist[-1][0], hitlist[-1][1] + movement))
+                        hitlist.append((hitlist[-1][0], hitlist[-1][1] + movement))
         # math phase
-        
-        
-        
-        
         if tx != px:
             if tx > px:
                 px += speed
@@ -82,14 +79,16 @@ async def main():
         #output phase
         screen.fill((24, 28, 36))
         for y in range(10):
-               for x in range(16):
-                   current_cell = LEVEL1[y][x]
-                   if current_cell == "w":
-                       pygame.draw.rect(screen,(12,12,12),pygame.Rect((x*40,y*40),(40,40)))
-                   elif current_cell == ".":
-                       # code for drawing an empty space at x*40, y*40 (pixel position)
-                        pygame.draw.rect(screen,(0,200,50),pygame.Rect((x*40,y*40),(40,40)))
-       
+            for x in range(16):
+                current_cell = map[y][x]
+                if current_cell == "w":
+                    pygame.draw.rect(screen,(0,150,200),pygame.Rect((x*40,y*40),(40,40)))
+                elif current_cell == ".":
+                    # code for drawing an empty space at x*40, y*40 (pixel position)
+                    pygame.draw.rect(screen,(0,200,50),pygame.Rect((x*40,y*40),(40,40)))
+                elif current_cell == "b":
+                    # code for drawing an empty space at x*40, y*40 (pixel position)
+                    pygame.draw.rect(screen,(200,200,0),pygame.Rect((x*40,y*40),(40,40)))
         pygame.draw.circle(screen, (170, 100, 0), (px, py), 18)
         pygame.draw.circle(screen, (200, 0, 0), (tx, ty), 2)
         pygame.display.flip()
