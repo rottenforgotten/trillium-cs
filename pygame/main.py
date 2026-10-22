@@ -56,7 +56,7 @@ async def main():
                 elif event.key == pygame.K_UP and (map[int(hitlist[-1][1])][int(hitlist[-1][0])]) != "w":
                     hitlist.append((hitlist[-1][0], hitlist[-1][1] - movement))
                 elif event.key == pygame.K_DOWN and (map[int(hitlist[-1][1])][int(hitlist[-1][0])]) != "w":
-                    hitlist.append((hitlist[-1][0], hitlist[-1][1] + movement)
+                    hitlist.append((hitlist[-1][0], hitlist[-1][1] + movement))
         # math phase
         if tx != px:
             if tx > px: 
