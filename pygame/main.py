@@ -33,12 +33,12 @@ async def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Trillium starter")
     clock = pygame.time.Clock()
-    px, py, = 340,340
-    speed = 2.5
+    px, py, = 8.5,8.5
+    speed = 2.5/40
     #movement must be divisible by speed
     tx, ty = px, py
     running = True
-    movement = 40
+    movement = 1
     hitlist = [(px,py)]
     while running:
         #input phase
@@ -49,25 +49,24 @@ async def main():
                 running = False
             
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    if map[(hitlist[-1][0]//40)][(hitlist[-1][0]//40)] != "w":
-                        hitlist.append((hitlist[-1][0] - movement, hitlist[-1][1]))
-                elif event.key == pygame.K_RIGHT:
-                        hitlist.append((hitlist[-1][0] + movement, hitlist[-1][1]))
-                elif event.key == pygame.K_UP:
-                        hitlist.append((hitlist[-1][0], hitlist[-1][1] - movement))
-                elif event.key == pygame.K_DOWN:
-                        hitlist.append((hitlist[-1][0], hitlist[-1][1] + movement))
+                if event.key == pygame.K_LEFT and (map[int(hitlist[-1][1])][int(hitlist[-1][0])]) != "w":
+                    hitlist.append((hitlist[-1][0] - movement, hitlist[-1][1]))               
+                elif event.key == pygame.K_RIGHT and (map[int(hitlist[-1][1])][int(hitlist[-1][0])]) != "w":
+                    hitlist.append((hitlist[-1][0] + movement, hitlist[-1][1]))
+                elif event.key == pygame.K_UP and (map[int(hitlist[-1][1])][int(hitlist[-1][0])]) != "w":
+                    hitlist.append((hitlist[-1][0], hitlist[-1][1] - movement))
+                elif event.key == pygame.K_DOWN and (map[int(hitlist[-1][1])][int(hitlist[-1][0])]) != "w":
+                    hitlist.append((hitlist[-1][0], hitlist[-1][1] + movement)
         # math phase
         if tx != px:
-            if tx > px:
-                px += speed
-            else:
+            if tx > px: 
+                px += speed       
+            elif tx < px:
                 px -= speed
         if ty != py:
             if ty > py:
                 py += speed
-            else:
+            elif ty < py:
                 py -= speed
         if len(hitlist) == 0:
             hitlist.append((px,py))
@@ -89,8 +88,8 @@ async def main():
                 elif current_cell == "b":
                     # code for drawing an empty space at x*40, y*40 (pixel position)
                     pygame.draw.rect(screen,(200,200,0),pygame.Rect((x*40,y*40),(40,40)))
-        pygame.draw.circle(screen, (170, 100, 0), (px, py), 18)
-        pygame.draw.circle(screen, (200, 0, 0), (tx, ty), 2)
+        pygame.draw.circle(screen, (170, 100, 0), (px*40, py*40), 18)
+        pygame.draw.circle(screen, (200, 0, 0), (tx*40, ty*40), 2)
         pygame.display.flip()
         clock.tick(60)
         await asyncio.sleep(0)  # hands control to the browser once per frame
