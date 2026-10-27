@@ -42,7 +42,6 @@ async def main():
     px, py, = 8.5,8.5
     speed = 2.5/40
     #movement must be divisible by speed
-    boxlist = ()
     tx, ty = px, py
     running = True
     movement = 1
