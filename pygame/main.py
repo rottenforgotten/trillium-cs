@@ -31,11 +31,18 @@ async def main():
     ]
     # important
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    boxlist = []
+    for y in range(10):
+        for x in range(16):
+            current_cell = map[y][x]
+            if current_cell == "b":
+                boxlist.append((x,y))
     pygame.display.set_caption("Trillium starter")
     clock = pygame.time.Clock()
     px, py, = 8.5,8.5
     speed = 2.5/40
     #movement must be divisible by speed
+    boxlist = ()
     tx, ty = px, py
     running = True
     movement = 1
@@ -57,8 +64,7 @@ async def main():
                     hitlist.append((hitlist[-1][0], hitlist[-1][1]-movement))
                 elif event.key == (pygame.K_DOWN or pygame.K_S) and (map[int(hitlist[-1][1]+movement)][int(hitlist[-1][0])]) != "w":
                     hitlist.append((hitlist[-1][0], hitlist[-1][1]+movement))
-        # math phase
-            
+        # math phase     
         if tx != px:
             if tx > px: 
                 px += speed       
@@ -68,7 +74,12 @@ async def main():
             if ty > py:
                 py += speed
             elif ty < py:
+                if(map[int(hitlist[-1][1]+movement)][int(hitlist[-1][0])]) == "b":
+                    (map[int(hitlist[-1][1])][int(hitlist[-1][0]+movement*2)])= "b"
+                    (map[int(hitlist[-1][1])][int(hitlist[-1][0]+movement)])="."
+
                 py -= speed
+
         if len(hitlist) == 0:
             hitlist.append((px,py))
         else:
@@ -86,9 +97,8 @@ async def main():
                 elif current_cell == ".":
                     # code for drawing an empty space at x*40, y*40 (pixel position)
                     pygame.draw.rect(screen,(0,200,50),pygame.Rect((x*40,y*40),(40,40)))
-                elif current_cell == "b":
-                    # code for drawing an empty space at x*40, y*40 (pixel position)
-                    pygame.draw.rect(screen,(200,200,0),pygame.Rect((x*40,y*40),(40,40)))
+        for box in boxlist:
+            pygame.draw.rect(screen,(200,200,0),pygame.Rect((box[0]*40,box[1]*40),(40,40)))
         pygame.draw.circle(screen, (170, 100, 0), (px*40, py*40), 18)
         pygame.draw.circle(screen, (200, 0, 0), (tx*40, ty*40), 2)
         pygame.display.flip()
