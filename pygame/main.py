@@ -49,16 +49,15 @@ async def main():
                 running = False
             
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT and (map[int(hitlist[-1][1])][int(hitlist[-1][0]-movement)]) != "w":
+                if event.key == (pygame.K_LEFT or pygame.K_A) and (map[int(hitlist[-1][1])][int(hitlist[-1][0]-movement)]) != "w":
                     hitlist.append((hitlist[-1][0] - movement, hitlist[-1][1]))                                
-                elif event.key == pygame.K_RIGHT and (map[int(hitlist[-1][1])][int(hitlist[-1][0]+movement)]) != "w":
+                elif event.key == (pygame.K_RIGHT or pygame.K_D) and (map[int(hitlist[-1][1])][int(hitlist[-1][0]+movement)]) != "w":
                     hitlist.append((hitlist[-1][0]+ movement, hitlist[-1][1]))
-                elif event.key == pygame.K_UP and (map[int(hitlist[-1][1]-movement)][int(hitlist[-1][0])]) != "w":
+                elif event.key == (pygame.K_UP or pygame.K_W) and (map[int(hitlist[-1][1]-movement)][int(hitlist[-1][0])]) != "w":
                     hitlist.append((hitlist[-1][0], hitlist[-1][1]-movement))
-                elif event.key == pygame.K_DOWN and (map[int(hitlist[-1][1]+movement)][int(hitlist[-1][0])]) != "w":
+                elif event.key == (pygame.K_DOWN or pygame.K_S) and (map[int(hitlist[-1][1]+movement)][int(hitlist[-1][0])]) != "w":
                     hitlist.append((hitlist[-1][0], hitlist[-1][1]+movement))
         # math phase
-        if(map[int(hitlist[-1][1])][int(hitlist[-1][0]+movement)]) == "b":
             
         if tx != px:
             if tx > px: 
