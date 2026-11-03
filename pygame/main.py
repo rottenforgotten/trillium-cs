@@ -52,16 +52,16 @@ async def main():
             thingy=int(hitlist[-1][1])
             gizmo=int(hitlist[-1][0])
             if event.type == pygame.KEYDOWN:
-                if event.key==(pygame.K_LEFT or pygame.K_A)and map[thingy][gizmo-movement]!="w":
-                    hitlist.append((hitlist[-1][0] - movement, hitlist[-1][1]))                                
-                elif event.key==(pygame.K_RIGHT or pygame.K_D)and map[thingy][gizmo+movement]!="w":
-                    hitlist.append((hitlist[-1][0]+ movement, hitlist[-1][1]))
-                elif event.key==(pygame.K_UP or pygame.K_W)and map[thingy-movement][gizmo]!="w":
-                    hitlist.append((hitlist[-1][0], hitlist[-1][1]-movement))
-                elif event.key==(pygame.K_DOWN or pygame.K_S) and map[thingy+movement][gizmo]!= "w":
-                    hitlist.append((hitlist[-1][0], hitlist[-1][1]+movement))
+                if event.key==(pygame.K_LEFT or pygame.K_A)and (map[thingy][gizmo-movement])!="w":
+                    hitlist.append((gizmo-movement,thingy))                               
+                elif event.key==(pygame.K_RIGHT or pygame.K_D)and (map[thingy][gizmo+movement])!="w":
+                    hitlist.append((gizmo+movement,thingy))
+                elif event.key==(pygame.K_UP or pygame.K_W)and (map[thingy-movement][gizmo])!="w":
+                    hitlist.append((gizmo,thingy-movement))
+                elif event.key==(pygame.K_DOWN or pygame.K_S) and (map[thingy+movement][gizmo])!= "w":
+                    hitlist.append((gizmo,thingy+movement))
         # math phase     
-        last_input =(hitlist[0][0], hitlist[0][1])
+        last_input =(gizmo,thingy)
         if tx != px:
             if tx > px: 
                 
@@ -71,15 +71,14 @@ async def main():
         if ty != py:
             if ty > py:
                 py += speed
-            elif ty < py:
-
-                        
+            elif ty < py:     
                     py -= speed
         if len(hitlist) == 0:
             hitlist.append((px,py))
         else:
-            (tx,ty) = hitlist[1] 
-            hitlist[0] = (px,py)
+            (tx,ty) = hitlist[0] 
+            if (px,py) == hitlist[0]:
+                hitlist.pop(0)
         #output phase
         screen.fill((24, 28, 36))
         for y in range(10):
