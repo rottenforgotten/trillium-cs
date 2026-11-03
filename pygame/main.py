@@ -49,30 +49,36 @@ async def main():
                 hitlist.append ((px,py))
             if event.type == pygame.QUIT:
                 running = False    
-            thingy=int(hitlist[-1][1])
-            gizmo=int(hitlist[-1][0])
+            thingy=(hitlist[-1][1])
+            gizmo=(hitlist[-1][0])
             if event.type == pygame.KEYDOWN:
-                if event.key==(pygame.K_LEFT or pygame.K_A)and (map[thingy][gizmo-movement])!="w":
+                if event.key==(pygame.K_LEFT or pygame.K_A)and (map[int(thingy)][int(gizmo-movement)])!="w":
                     hitlist.append((gizmo-movement,thingy))                               
-                elif event.key==(pygame.K_RIGHT or pygame.K_D)and (map[thingy][gizmo+movement])!="w":
+                elif event.key==(pygame.K_RIGHT or pygame.K_D)and (map[int(thingy)][int(gizmo+movement)])!="w":
                     hitlist.append((gizmo+movement,thingy))
-                elif event.key==(pygame.K_UP or pygame.K_W)and (map[thingy-movement][gizmo])!="w":
+                elif event.key==(pygame.K_UP or pygame.K_W)and (map[int(thingy-movement)][int(gizmo)])!="w":
                     hitlist.append((gizmo,thingy-movement))
-                elif event.key==(pygame.K_DOWN or pygame.K_S) and (map[thingy+movement][gizmo])!= "w":
+                elif event.key==(pygame.K_DOWN or pygame.K_S) and (map[int(thingy+movement)][int(gizmo)])!= "w":
                     hitlist.append((gizmo,thingy+movement))
-        # math phase     
-        last_input =(gizmo,thingy)
+        # math phase
         if tx != px:
-            if tx > px: 
-                
+            if tx > px:      
+                if (px+movement,py) in boxlist:
+                    boxlist[(boxlist.index(px+movement,py))] = ((px+movement)+speed,py)
                 px += speed       
             elif tx < px:
+                if (px-movement,py) in boxlist:
+                    boxlist[(boxlist.index(px-movement,py))] = ((px-movement)-speed,py)
                 px -= speed
         if ty != py:
             if ty > py:
+                if (px,py+movement) in boxlist:
+                    boxlist[(boxlist.index(px,py+movement))] = (px,(py+movement)+speed)
                 py += speed
             elif ty < py:     
-                    py -= speed
+                if (px,py-movement) in boxlist:
+                    boxlist[(boxlist.index(px,py-movement))] = (px,(py-movement)-speed)
+                py -= speed
         if len(hitlist) == 0:
             hitlist.append((px,py))
         else:
