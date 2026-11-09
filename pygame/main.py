@@ -61,23 +61,25 @@ async def main():
                 elif event.key==(pygame.K_DOWN or pygame.K_S) and (map[int(thingy+movement)][int(gizmo)])!= "w":
                     hitlist.append((gizmo,thingy+movement))
         # math phase
+        bcy=int(py-0.5)
+        bcx=int(px-0.5)
         if tx != px:
             if tx > px:      
-                if (px+movement,py) in boxlist:
-                    boxlist[(boxlist.index(px+movement,py))] = ((px+movement)+speed,py)
+                if (bcx+movement,bcy) in boxlist:
+                    boxlist[boxlist.index(bcx+movement,bcy)] = ((bcx+movement)+speed,bcy)
                 px += speed       
             elif tx < px:
-                if (px-movement,py) in boxlist:
-                    boxlist[(boxlist.index(px-movement,py))] = ((px-movement)-speed,py)
+                if (bcx-movement,bcy) in boxlist:
+                    boxlist[boxlist.index(bcx-movement,bcy)] = ((bcx-movement)-speed,bcy)
                 px -= speed
-        if ty != py:
+        elif ty != py:
             if ty > py:
-                if (px,py+movement) in boxlist:
-                    boxlist[(boxlist.index(px,py+movement))] = (px,(py+movement)+speed)
+                if (bcx,bcy+movement) in boxlist:
+                    boxlist[boxlist.index(bcx,bcy+movement)] = (bcx,(bcy+movement)+speed)
                 py += speed
             elif ty < py:     
-                if (px,py-movement) in boxlist:
-                    boxlist[(boxlist.index(px,py-movement))] = (px,(py-movement)-speed)
+                if (bcx,bcy-movement) in boxlist:
+                    boxlist[boxlist.index(bcx,bcy-movement)] = (bcx,(bcy-movement)-speed)
                 py -= speed
         if len(hitlist) == 0:
             hitlist.append((px,py))
