@@ -61,25 +61,27 @@ async def main():
                 elif event.key==(pygame.K_DOWN or pygame.K_S) and (map[int(thingy+movement)][int(gizmo)])!= "w":
                     hitlist.append((gizmo,thingy+movement))
         # math phase
-        bcy=int(py-0.5)
-        bcx=int(px-0.5)
+        bcy=(ty-0.5)
+        bcx=(tx-0.5)
+        bcyi=int(bcy)
+        bcxi=int(bcx)
         if tx != px:
             if tx > px:      
-                if (bcx+movement,bcy) in boxlist:
-                    boxlist[boxlist.index(bcx+movement,bcy)] = ((bcx+movement)+speed,bcy)
+                if (bcx,bcy) in boxlist:
+                    boxlist[boxlist.index[bcyi,bcxi]] = (bcy,bcx+speed)
                 px += speed       
             elif tx < px:
-                if (bcx-movement,bcy) in boxlist:
-                    boxlist[boxlist.index(bcx-movement,bcy)] = ((bcx-movement)-speed,bcy)
+                if (bcx,bcy) in boxlist:
+                    boxlist[boxlist.index(bcxi,bcyi)] = (bcx-speed,bcy)
                 px -= speed
         elif ty != py:
             if ty > py:
-                if (bcx,bcy+movement) in boxlist:
-                    boxlist[boxlist.index(bcx,bcy+movement)] = (bcx,(bcy+movement)+speed)
+                if (bcx,bcy) in boxlist:
+                    boxlist[boxlist.index(bcxi,bcyi)] = (bcx,bcy+speed)
                 py += speed
             elif ty < py:     
-                if (bcx,bcy-movement) in boxlist:
-                    boxlist[boxlist.index(bcx,bcy-movement)] = (bcx,(bcy-movement)-speed)
+                if (bcx,bcy) in boxlist:
+                    boxlist[boxlist.index(bcxi,bcyi)] = (bcx,bcy-speed)
                 py -= speed
         if len(hitlist) == 0:
             hitlist.append((px,py))
@@ -99,9 +101,12 @@ async def main():
                     pygame.draw.rect(screen,(0,200,50),pygame.Rect((x*40,y*40),(40,40)))
         for box in boxlist:
             pygame.draw.rect(screen,(200,200,0),pygame.Rect((box[0]*40,box[1]*40),(40,40)))
+            print(box[0])
+            print(box[1])
         pygame.draw.circle(screen, (170, 100, 0), (px*40, py*40), 18)
         pygame.draw.circle(screen, (200, 0, 0), (tx*40, ty*40), 2)
         pygame.display.flip()
+        
         clock.tick(60)
         await asyncio.sleep(0)  # hands control to the browser once per frame
     pygame.quit()
