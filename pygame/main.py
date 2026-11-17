@@ -1,11 +1,4 @@
-"""A tiny Pygame game that also runs in the browser.
-Run it in the browser (this is the normal way in a codespace):
-    pygbag --port 3000 pygame
-then open the forwarded port 3000 when the notification appears.
-The only rule for browser-friendly Pygame: the game loop is `async` and
-calls `await asyncio.sleep(0)` once per frame. Everything else is ordinary
-Pygame. On a real desktop the same file runs with `python main.py`.
-"""
+#hey ryan i know your reading this (:
 import asyncio
 import pygame
 import crashscreen  # shows errors on the game screen and in the terminal
@@ -28,8 +21,8 @@ async def main():
     # important
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     boxlist = []
-    for y in range(10):
-        for x in range(16):
+    for x in range(16):
+        for y in range(10):
             current_cell = map[y][x]
             if current_cell == "b":
                 boxlist.append((x,y))
@@ -76,12 +69,12 @@ async def main():
                 px -= speed
         elif ty != py:
             if ty > py:
-                if (bcx,bcy) in boxlist:
-                    boxlist[boxlist.index(bcxi,bcyi)] = (bcx,bcy+speed)
+                if (bcxi,bcyi) in boxlist:
+                    boxlist[boxlist.index(bcxi,bcyi)] = (bcx,bcy-speed)                
                 py += speed
             elif ty < py:     
-                if (bcx,bcy) in boxlist:
-                    boxlist[boxlist.index(bcxi,bcyi)] = (bcx,bcy-speed)
+                if (bcxi,bcyi) in boxlist:
+                    boxlist[boxlist.index(bcxi,bcyi)] = (bcx,bcy+speed)
                 py -= speed
         if len(hitlist) == 0:
             hitlist.append((px,py))
@@ -101,8 +94,6 @@ async def main():
                     pygame.draw.rect(screen,(0,200,50),pygame.Rect((x*40,y*40),(40,40)))
         for box in boxlist:
             pygame.draw.rect(screen,(200,200,0),pygame.Rect((box[0]*40,box[1]*40),(40,40)))
-            print(box[0])
-            print(box[1])
         pygame.draw.circle(screen, (170, 100, 0), (px*40, py*40), 18)
         pygame.draw.circle(screen, (200, 0, 0), (tx*40, ty*40), 2)
         pygame.display.flip()
