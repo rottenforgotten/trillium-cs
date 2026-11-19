@@ -54,27 +54,15 @@ async def main():
                 elif event.key==(pygame.K_DOWN or pygame.K_S) and (map[int(thingy+movement)][int(gizmo)])!= "w":
                     hitlist.append((gizmo,thingy+movement))
         # math phase
-        bcy=(ty-0.5)
-        bcx=(tx-0.5)
-        bcyi=int(bcy)
-        bcxi=int(bcx)
         if tx != px:
             if tx > px:      
-                if (bcx,bcy) in boxlist:
-                    boxlist[boxlist.index[bcyi,bcxi]] = (bcy,bcx+speed)
                 px += speed       
             elif tx < px:
-                if (bcx,bcy) in boxlist:
-                    boxlist[boxlist.index(bcxi,bcyi)] = (bcx-speed,bcy)
                 px -= speed
         elif ty != py:
-            if ty > py:
-                if (bcxi,bcyi) in boxlist:
-                    boxlist[boxlist.index(bcxi,bcyi)] = (bcx,bcy-speed)                
+            if ty > py:              
                 py += speed
             elif ty < py:     
-                if (bcxi,bcyi) in boxlist:
-                    boxlist[boxlist.index(bcxi,bcyi)] = (bcx,bcy+speed)
                 py -= speed
         if len(hitlist) == 0:
             hitlist.append((px,py))
